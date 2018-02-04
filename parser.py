@@ -9,5 +9,3 @@ def get_input(CONTENT):
     for i in input:
         list_of_input.append(i.split("="))
     return list_of_input
-
-#get_input("Name=Abulfazl&LastName=Jalaly&UserName=abcd&Password=1234567890")
