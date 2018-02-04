@@ -11,4 +11,6 @@ I am using this approach because I think it is modular and scalable, but I might
 
 To execute: run server.py on one terminal and open browser to type: localhost:8080/index.html
 
+----->Handy Command for testing purposes: sudo kill -9 `ps aux|grep "python server.py"| head -n 1|awk '{print $2}'`
+
 P.S. Please name the commit appropriately to specify changes.
