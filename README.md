@@ -21,3 +21,11 @@ run server.py on terminal and open browser to type: localhost:8080/postit.html
 ----->Handy Command for testing purposes: `sudo kill -9 `ps aux|grep "python server.py"| head -n 1|awk '{print $2}'``
 
 P.S. Please name the commit appropriately to specify changes.
+
+To make sure server side scripting works (assuming you don't already have php installed): 
+On MAC: 
+brew tap homebrew/dupes
+brew tap homebrew/versions
+brew tap homebrew/homebrew-php
+
+brew install php54
