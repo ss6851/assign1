@@ -1,0 +1,10 @@
+serSetup={'IP':'10.0.0.1',
+'PORT':'8080',
+'GET_En':'YES',
+'POS_En':'YES',
+'PUT_En':'YES',
+'DEL_En':'YES',
+'CON_En':'YES',
+'ROOT_DIR':'/var/www/html',
+'REQ_LOG':'/var/www/html/req.txt',
+'BREQ_LOG':'/var/www/html/breq.txt'}
