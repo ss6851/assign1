@@ -14,6 +14,7 @@ def server():
 	s.bind(('', port))
 	s.listen(10)
 
+
 	while True: #To keep hold of the connection
 		try:
 
@@ -32,9 +33,13 @@ def server():
 			
 			if not http_method=="CONNECT":
 				file_requested = http_content.split()[1].split("/")[1]
+
+				os.system("php-cgi " + file_requested)
+
 				if os.path.isfile(file_requested):
 					file_size = os.stat(file_requested).st_size
 					common_log_1= h + " - " + " - " + str(datetime.datetime.now())+" "+str(http_content)
+				
 				else:
 					file_size = 0
 			else:
