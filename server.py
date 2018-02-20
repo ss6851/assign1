@@ -5,12 +5,14 @@ import datetime
 import os
 import os.path 
 import subprocess
+import configFile as cfg
+import configLangFile as cflg
 #import trycon
 
 def server():
 	s = socket.socket()
 	s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-	port = 8080
+	port = cfg.serSetup['PORT']
 	s.bind(('', port))
 	s.listen(10)
 
