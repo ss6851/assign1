@@ -1,3 +1,13 @@
+<html>
+<link rel="stylesheet" type="text/css" href="stylesheet.css">
+<body>
+
+<h1> Web Audit Assignment One </h1>
+
+<br>
+<h2> Search Results </h2>
+<br>
+
 <?php
 require('db_connect.php');
 
@@ -16,10 +26,22 @@ if($result->num_rows > 0)
 {
 	while($r = mysqli_fetch_assoc($result))
 	{
-		echo "Username: " . $r['username']. "-Name: " . $r['first_name'] . " " . $r['last_name'] . " " . $r['email'] . "<br>";
+		echo "<p>Username: " . $r['username']. "</p><br><p>Name: " . $r['first_name'] . " " . $r['last_name'] . "</p><br><p>Email " . $r['email'] . "</p><br>";
 	}
 }
 else
 {
-	echo "No Results Found";
+	echo '<script type="text/javascript">alert(\'NO RESULTS\')</script>';
+        exit;
 }
+?>
+
+<br><br>
+<p> For a new search, please click the button below.</p>
+<form action="search.html">
+        <input type="submit" value="Search">
+</form>
+
+</body>
+</html>
+

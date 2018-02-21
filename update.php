@@ -5,8 +5,8 @@ if(isset($_POST['username']) && isset($_POST['password']))
 {
 	$newUsername = $_POST['username'];
 	$newEmail = $_POST['email'];
-	$newFirstName = $_POST['firstName'];
-	$newLastName = $_POST['lastName'];
+	$newFirstName = $_POST['firstname'];
+	$newLastName = $_POST['lastname'];
 	$newPassword = $_POST['password'];
 }
 
@@ -21,16 +21,20 @@ $newLastName = stripslashes($newLastName);
 $newLastName = mysqli_real_escape_string($conn, $newLastName);
 $newPassword = stripslashes($newPassword);
 $newPassword = mysqli_real_escape_string($conn, $newPassword);
-$sql = "UPDATE $tbl_name SET username='$newUsername', first_name='$newFirstName', last_name='$newLastName', email='$newEmail', password='$newPassword' where username='$newUsername'";
+
+$sql = "UPDATE reg_user SET username='$newUsername', first_name='$newFirstName', last_name='$newLastName', email='$newEmail', password='$newPassword' where username='$newUsername'";
+
 $result = mysqli_query($conn, $sql);
 
-if($result)
+print_r($result);
+if($result->num_rows > 0)
 {
-	echo "USER CREATED";
+	//header("location:successLG.php");
 } 
 else
 {
-	echo "USER NOT CREATED" . $conn->error;
+	//echo '<script type="text/javascript">alert(\'FAILED UPDATE\')</script>';
+        //exit;
 }
 ?>
 

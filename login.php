@@ -1,31 +1,35 @@
-<table width="300" border="0" align="center" cellpadding="0" cellspacing="1" bgcolor="#CCCCCC">
-	<tr>
-	<form name="form1" method="post" action="check.php">
-	<td>
-	<table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#FFFFFF">
-	<tr>
-	<td colspan="3"><strong>Member Login </strong></td>
-	</tr>
+<html>
+<?php
+session_start();
+require('db_connect.php');
+// username and password sent from form
+$myusername=$_POST['username'];
+$mypassword=$_POST['password'];
 
-	<tr>
-	<td width="78">Username</td>
-	<td width="6">:</td>
-	<td width="294"><input name="myusername" type="text" id="myusername"></td>
-	</tr>
+// To protect MySQL injection (more detail about MySQL injection)
+$myusername = stripslashes($myusername);
+$mypassword = stripslashes($mypassword);
+$myusername = mysqli_real_escape_string($conn, $myusername);
+$mypassword = mysqli_real_escape_string($conn, $mypassword);
 
-	<tr>
-	<td>Password</td>
-	<td>:</td>
-	<td><input name="mypassword" type="text" id="mypassword"></td>
-	</tr>
+$sql="SELECT * FROM $tbl_name WHERE username='$myusername' and password='$mypassword'";
+$result=mysqli_query($conn, $sql);
 
-	<tr>
-	<td>&nbsp;</td>
-	<td>&nbsp;</td>
-	<td><input type="submit" name="Submit" value="Login"></td>
-	</tr>
-</table>
-</td>
-</form>
-</tr>
-</table>
+// Mysql_num_row is counting table row
+$count=mysqli_num_rows($result);
+
+// If result matched $myusername and $mypassword, table row must be 1 row
+
+if($count==1){
+	$_SESSION['login']=true;
+	// Register $myusername and redirects to successful login in page"
+	$_SESSION['username'] = $myusername;
+	header("location:successLG.php");
+}
+else {
+
+	echo '<script type="text/javascript">alert(\'FAILED LOGIN\')</script>';
+        exit;
+}
+?>
+</html>

@@ -5,8 +5,8 @@ if(isset($_POST['username']) && isset($_POST['password']))
 {
 	$newUsername = $_POST['username'];
 	$newEmail = $_POST['email'];
-	$newFirstName = $_POST['firstName'];
-	$newLastName = $_POST['lastName'];
+	$newFirstName = $_POST['firstname'];
+	$newLastName = $_POST['lastname'];
 	$newPassword = $_POST['password'];
 }
 
@@ -21,16 +21,19 @@ $newLastName = stripslashes($newLastName);
 $newLastName = mysqli_real_escape_string($conn, $newLastName);
 $newPassword = stripslashes($newPassword);
 $newPassword = mysqli_real_escape_string($conn, $newPassword);
+//Query to add user
 $sql = "INSERT INTO $tbl_name (username, first_name, last_name, email, password) VALUES ('$newUsername','$newFirstName','$newLastName', '$newEmail', '$newPassword')";
+//Does the actual query
 $result = mysqli_query($conn, $sql);
-
+//Validates the success of the user addition
 if($result)
 {
-	echo "USER CREATED";
+header("location:site.html");
 } 
 else
-{
-	echo "USER NOT CREATED";
+{       
+	echo '<script type="text/javascript">alert(\'FAILED REGISTRATION\')</script>';
+        exit;
 }
 ?>
 
