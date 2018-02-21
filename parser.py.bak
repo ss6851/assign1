@@ -1,0 +1,50 @@
+test_request = "GET /path/to/index.html HTTP/1.1\nHost: www.host1.com:80"
+
+# 4 functions
+# returns the HTTP HTTP_METHOD
+# return the HTTP page
+# return HTTP version
+
+def httpMethod(CONTENT):
+    my_list = CONTENT.split("\n")
+    #for i in my_list:
+        #print i
+    #print my_list
+    first_line = my_list[0]
+    # print first_line
+    HTTP_METHOD = first_line.split()[0]
+    #print HTTP_METHOD
+
+    return HTTP_METHOD
+
+def httpFile(CONTENT):
+    my_list = CONTENT.split("\n")
+    first_line = my_list[0]
+    FILE = first_line.split()[1]
+    #print FILE
+    return FILE
+
+def httpVersion(CONTENT):
+    my_list = CONTENT.split("\n")
+    first_line = my_list[0]
+    VERSION= first_line.split()[2]
+
+    return VERSION
+
+sritng="Name=Abulfazl&LastName=Jalaly&UserName=abcd&Password=1234567890"
+
+def get_parameters(my_data):
+    result=my_data.split("&")
+    my_final_list=[]
+    for item in result:
+        my_final_list.append(item.split("="))
+
+    return my_final_list
+
+#print get_post(string)
+
+
+#print http_version(test_request)
+
+#httpMethod(test_request)
+#httpFile(test_request)

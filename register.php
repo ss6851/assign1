@@ -4,6 +4,7 @@ require('db_connect.php');
 if(isset($_POST['username']) && isset($_POST['password']))
 {
 	$newUsername = $_POST['username'];
+	echo "$newUsername";
 	$newEmail = $_POST['email'];
 	$newFirstName = $_POST['firstname'];
 	$newLastName = $_POST['lastname'];

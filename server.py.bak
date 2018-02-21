@@ -7,6 +7,7 @@ import os.path
 import subprocess
 #import configFile as cfg
 #import configLangFile as cflg
+#import trycon
 
 def server():
 	s = socket.socket()
@@ -17,6 +18,7 @@ def server():
 
 	while True: #To keep hold of the connection
 		try:
+
 			c, addr = s.accept()#accept the connection, syn/ack, blocking call
 			
 			for index in addr:
@@ -100,19 +102,8 @@ def server():
 							#print con_len
 							#'''
 							if con_len =="Content-Length":
-								_POST = parse.get_input(data_received.split("\r\n\r\n")[1])#\r\n\r\n is the HTTP version of saying end of line. imp to tell browser end of metadata and start of data.
-								#print _POST
-								#for i in _POST:
-								#	print _POST.values(i)
-								
-
-								post_contents = open("post_input.txt","w")
-								post_contents.write(str(_POST)+"\n")
-								post_contents.close()
-
-								#c.send(_POST)
-								#for i in len(user_input):
-								#	c.send(user_input[i])
+								user_input = parse.get_input(data_received.split("\r\n\r\n")[1])#\r\n\r\n is the HTTP version of saying end of line. imp to tell browser end of metadata and start of data.
+								print user_input
 								access_log = open("access_log.log", "a")
 								common_log = common_log_1.strip()+" 200 "+str(file_size)
 								access_log.write(common_log+"\n")
@@ -126,7 +117,8 @@ def server():
 								#print "flag"
 								error_log.write(error_common_log+ "\n")
 								error_log.close()
-								#'''
+							#'''
+
 
 						elif http_method == "PUT":
 							cmd = "touch "+file_requested 
@@ -186,7 +178,9 @@ def server():
 							error_common_log = error_common_log_1.strip()+" 400 " 
 							#print "flag"
 							error_log.write(error_common_log+ "\n")
-							error_log.close()	
+							error_log.close()		
+						
+
 					else:
 						c.send("HTTP/1.1 500 Server Error\n" + "Content-Type: text/html\n" + "\n")
 						codes.code_500(c, "500 Server Error")
@@ -206,6 +200,7 @@ def server():
 						#print "flag"
 						error_log.write(error_common_log+ "\n")
 						error_log.close()
+
 						
 					else:
 						c.send("HTTP/1.1 403 Forbidden\n" + "Content-Type: text/html\n" + "\n")
@@ -215,7 +210,8 @@ def server():
 						error_common_log = error_common_log_1.strip()+" 403 " 
 						#print "flag"
 						error_log.write(error_common_log+ "\n")
-						error_log.close()					
+						error_log.close()	
+				
 			else:
 				c.send("HTTP/1.1 505 HTTP Version Not Supported\n" + "Content-Type: text/html\n" + "\n")
 				codes.code_400(c, "505 HTTP Version Not Supported")
@@ -223,6 +219,10 @@ def server():
 				error_common_log = error_common_log_1.strip()+" 505 " #+ str(file_size)
 				error_log.write(error_common_log+ "\n")
 				error_log.close()
+
+
+
 		except:
 			s.close()#not closing a connection can lead to a potential denial of service.
+
 server()
