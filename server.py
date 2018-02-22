@@ -72,15 +72,49 @@ def server():
 								file_contents = file.read()
 								file.close
 
-								access_log = open("access_log.log", "a")
-								common_log = common_log_1.strip()+" 200 "+str(file_size)
-								access_log.write(common_log+"\n")
-								access_log.close()
+								if(str(file_requested) == "401.txt"):
+									print "****"
+									auth = data_received.split("\n")[3].split(":")[0]
+									#print auth
+									#if data_received.split("\n")[3].split()[2].contains("="):
+									#	creds = data_received.split("\n")[3].split()[2]
+									#print "creds: "+creds
+									if auth =="Authorization":
+										creds = data_received.split("\n")[3].split()[2]
 
-								c.send("HTTP/1.1 200 OK\n"+"Content-Type: text/html\n"+"\n")
-								codes.code_200(c, "200 OK")
-								c.send(file_contents)
+										if creds == "c2luZ2g6c2luZ2g=":
+											c.send("HTTP/1.1 200 OK\n"+"Content-Type: text/html\n"+"\n")
+											codes.code_200(c, "200 OK")
+											c.send(file_contents)											
 
+										else:
+											codes.code_401(c, "401 Unauthorized")
+											c.send("HTTP/1.1 401 Unauthorized\n")
+											access_log = open("access_log.log", "a")
+											#common_log_1= h + " - " + " - " + str(datetime.datetime.now())+" "+str(http_content)
+											common_log = common_log_1.strip()+" 401 "+str(file_size)
+											access_log.write(common_log+"\n")
+											access_log.close()
+									else:
+										codes.code_401(c, "401 Unauthorized")
+										c.send("HTTP/1.1 401 Unauthorized\n")
+										access_log = open("access_log.log", "a")
+										#common_log_1= h + " - " + " - " + str(datetime.datetime.now())+" "+str(http_content)
+										common_log = common_log_1.strip()+" 401 "+str(file_size)
+										access_log.write(common_log+"\n")
+										access_log.close()
+
+								else:
+									c.send("HTTP/1.1 200 OK\n"+"Content-Type: text/html\n"+"\n")
+									codes.code_200(c, "200 OK")
+									c.send(file_contents)
+
+									access_log = open("access_log.log", "a")
+									common_log = common_log_1.strip()+" 200 "+str(file_size)
+									access_log.write(common_log+"\n")
+									access_log.close()
+
+								
 							except:
 								codes.code_404(c, "Error 404 File not found")
 								c.send("HTTP/1.1 404 Not Found\n")
@@ -198,6 +232,7 @@ def server():
 						error_log.close()
 				else:
 					if perm == "True":
+						print "Could also mean that the file_requested did not exist"
 						c.send("HTTP/1.1 500 Server Error\n" + "Content-Type: text/html\n" + "\n")
 						codes.code_500(c, "500 Server Error")
 						error_log = open("error_log.log", "a")
