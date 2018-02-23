@@ -1,1 +1,6 @@
-['Sukhpreet', 'Singh', '5854069024']
+p
+username: ss6852
+lastname: Singh
+password: hello
+email: ss6851%40rit.edu
+firstname: Sukhpreet

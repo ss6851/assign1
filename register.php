@@ -2,13 +2,19 @@
 require('db_connect.php');
 $host="localhost"; // Host name
 $username="root"; // Mysql username
-$password="hello"; // Mysql password
+$password="singh"; // Mysql password
 $db_name="test"; // Database name
 $tbl_name="reg_user"; // Table name
 
+$newUsername="";
+$newEmail="";
+$newFirstName="";
+$newLastName="";
+$newPassword="";
+
 $conn = mysqli_connect($host , $username, $password, $db_name) or die("Failed connection");
 // username and password sent from form
-$file = fopen("test.txt", "r");
+$file = fopen("post_input.txt", "r");
 if($file)
 {
         while(($line = fgets($file)) !== false)

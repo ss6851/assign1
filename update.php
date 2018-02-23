@@ -2,13 +2,13 @@
 //require('db_connect.php');
 $host="localhost"; // Host name
 $username="root"; // Mysql username
-$password="hello"; // Mysql password
+$password="singh"; // Mysql password
 $db_name="test"; // Database name
 $tbl_name="reg_user"; // Table name
 
 $conn = mysqli_connect($host , $username, $password, $db_name) or die("Failed connection");
 // username and password sent from form
-$file = fopen("test.txt", "r");
+$file = fopen("post_input.txt", "r");
 if($file)
 {
         while(($line = fgets($file)) !== false)
@@ -58,12 +58,13 @@ $result = mysqli_query($conn, $sql);
 print_r($result);
 if($result)
 {
+        echo "update works\n";
 	//header("location:successLG.php");
 } 
 else
 {
-	//echo '<script type="text/javascript">alert(\'FAILED UPDATE\')</script>';
-        //exit;
+	echo "<script type='text/javascript'>alert(\'FAILED UPDATE\')</script>";
+        exit;
 }
 ?>
 

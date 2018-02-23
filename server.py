@@ -57,6 +57,7 @@ def server():
 						perm = os.access(file_requested, os.R_OK)
 						perm = str(perm)
 						print "perm: "+perm
+						var = 0
 						var = os.system("php-cgi "+file_requested)
 						#print "var "+var
 
@@ -139,9 +140,15 @@ def server():
 								#for i in _POST:
 								#	print _POST.values(i)
 								
-
 								post_contents = open("post_input.txt","w")
-								post_contents.write(str(_POST)+"\n")
+								post_contents.write("p\n")
+								post_contents.close()
+								post_contents = open("post_input.txt","a")
+
+								for v,k in _POST.items():
+									#print 
+									#post_contents = open("post_input.txt","w")
+									post_contents.write(v+": "+k+"\n")
 								post_contents.close()
 
 								#c.send(_POST)

@@ -2,13 +2,13 @@
 //require('db_connect.php');
 $host="localhost"; // Host name
 $username="root"; // Mysql username
-$password="hello"; // Mysql password
+$password="singh"; // Mysql password
 $db_name="test"; // Database name
 $tbl_name="reg_user"; // Table name
 
 $conn = mysqli_connect($host , $username, $password, $db_name) or die("Failed connection");
 // username and password sent from form
-$file = fopen("test.txt", "r");
+$file = fopen("post_input.txt", "r");
 if($file)
 {
 	while(($line = fgets($file)) !== false)
@@ -18,10 +18,12 @@ if($file)
 		if($test[0]=='username:')
 		{
 			$myusername = $test[1];
+
 		}
 		else if($test[0]=='password:')
 		{
 			$mypassword = $test[1];
+
 		}
 	}
 }
@@ -42,14 +44,16 @@ $count=mysqli_num_rows($result);
 // If result matched $myusername and $mypassword, table row must be 1 row
 
 if($count==1){
+	echo "It works\n";
 	$_SESSION['login']=true;
 	// Register $myusername and redirects to successful login in page"
 	$_SESSION['username'] = $myusername;
-	header("location:successLG.php");
+	echo $_SESSION['username'];
+	echo "<script>window.location.replace('/site.html');</script>";
 }
 else {
-
-	echo '<script type="text/javascript">alert(\'FAILED LOGIN\')</script>';
-        exit;
+	//echo "FAILED LOGIN";
+	echo "<script>alert(\'FAILED LOGIN\');</script>";
+    exit;
 }
 ?>

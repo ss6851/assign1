@@ -9,17 +9,17 @@
 <br>
 
 <?php
-require('db_connect.php');
+//require('db_connect.php');
 
 $host="localhost"; // Host name
 $username="root"; // Mysql username
-$password="hello"; // Mysql password
+$password="singh"; // Mysql password
 $db_name="test"; // Database name
 $tbl_name="reg_user"; // Table name
 
 $conn = mysqli_connect($host , $username, $password, $db_name) or die("Failed connection");
 // username and password sent from form
-$file = fopen("test.txt", "r");
+$file = fopen("post_input.txt", "r");
 if($file)
 {
         while(($line = fgets($file)) !== false)
@@ -32,7 +32,7 @@ if($file)
                 }
         }
 }
-
+echo $searchUsername;
 if($searchUsername)
 {
 	$searchUsername = stripslashes($searchUsername);
@@ -42,6 +42,7 @@ if($searchUsername)
 $sql = "SELECT username,first_name,last_name,email from reg_user where username='$searchUsername'";
 
 $result = mysqli_query($conn, $sql);
+
 
 if($result->num_rows > 0)
 {
