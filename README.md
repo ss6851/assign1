@@ -46,6 +46,7 @@ For WEB SERVER:
 		sudo apt install php-cgi
 
 For the Web App:
+	
 	After starting the web server, please navigate to a browser of your choice and type "localhost:8080/site.html" to access our main web page. Note: if you are using Chrome, you may have to remove "?" from the path as this is a bug within Chrome that appears when you navigate with html tags.
 	
 	From site.html, you can choose to register, login, or search. If you login, you will have the option to update your information in our database. At any point, you can also choose to logout after you successfully login.
