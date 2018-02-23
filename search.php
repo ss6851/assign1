@@ -11,9 +11,30 @@
 <?php
 require('db_connect.php');
 
-if(isset($_POST['username']))
+$host="localhost"; // Host name
+$username="root"; // Mysql username
+$password="hello"; // Mysql password
+$db_name="test"; // Database name
+$tbl_name="reg_user"; // Table name
+
+$conn = mysqli_connect($host , $username, $password, $db_name) or die("Failed connection");
+// username and password sent from form
+$file = fopen("test.txt", "r");
+if($file)
 {
-	$searchUsername = $_POST['username'];
+        while(($line = fgets($file)) !== false)
+        {
+                $line = trim($line, "\n");
+                $test = explode(" ",$line);
+                if($test[0]=='username:')
+                {
+                        $searchUsername = $test[1];
+                }
+        }
+}
+
+if($searchUsername)
+{
 	$searchUsername = stripslashes($searchUsername);
 	$searchUsername = mysqli_real_escape_string($conn, $searchUsername);
 }

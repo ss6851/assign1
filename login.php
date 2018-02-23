@@ -1,10 +1,31 @@
-<html>
 <?php
-session_start();
-require('db_connect.php');
+//require('db_connect.php');
+$host="localhost"; // Host name
+$username="root"; // Mysql username
+$password="hello"; // Mysql password
+$db_name="test"; // Database name
+$tbl_name="reg_user"; // Table name
+
+$conn = mysqli_connect($host , $username, $password, $db_name) or die("Failed connection");
 // username and password sent from form
-$myusername=$_POST['username'];
-$mypassword=$_POST['password'];
+$file = fopen("test.txt", "r");
+if($file)
+{
+	while(($line = fgets($file)) !== false)
+	{
+		$line = trim($line, "\n");
+		$test = explode(" ",$line);
+		if($test[0]=='username:')
+		{
+			$myusername = $test[1];
+		}
+		else if($test[0]=='password:')
+		{
+			$mypassword = $test[1];
+		}
+	}
+}
+
 
 // To protect MySQL injection (more detail about MySQL injection)
 $myusername = stripslashes($myusername);
@@ -32,4 +53,3 @@ else {
         exit;
 }
 ?>
-</html>
